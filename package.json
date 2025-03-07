@@ -1,0 +1,5 @@
+{
+	"dependencies": {
+		"@lightdash/cli": "^0.1527.2"
+	}
+}

@@ -1,0 +1,8 @@
+
+target/
+dbt_packages/
+logs/
+node_modules/
+.DS_Store
+.env
+.venv/

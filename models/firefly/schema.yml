@@ -1,0 +1,321 @@
+version: 2
+
+models:
+  - name: budgets
+    description: "Where firefly iii stores its budgets"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: created_at
+        description: "Timestamp when the budget was created"
+        tests:
+          - not_null
+
+      - name: updated_at
+        description: "Timestamp when the budget was last updated"
+
+      - name: deleted_at
+        description: "Timestamp when the budget was deleted, if applicable"
+
+      - name: user_id
+        description: "Foreign key to the users table"
+        tests:
+          - not_null
+
+      - name: name
+        description: "Name of the budget"
+        tests:
+          - not_null
+
+      - name: active
+        description: "Whether the budget is currently active"
+        tests:
+          - not_null
+
+      - name: encrypted
+        description: "Whether the budget data is encrypted"
+        tests:
+          - not_null
+
+      - name: order
+        description: "Display order of the budget"
+        tests:
+          - not_null
+
+      - name: user_group_id
+        description: "Foreign key to the user groups table"
+
+  - name: account_types
+    description: "Account types in the firefly iii system"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: created_at
+        description: "Timestamp when the account type was created"
+
+      - name: updated_at
+        description: "Timestamp when the account type was last updated"
+
+      - name: type
+        description: "The account type identifier"
+        tests:
+          - not_null
+
+  - name: accounts
+    description: "Financial accounts in the firefly iii system"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: created_at
+        description: "Timestamp when the account was created"
+
+      - name: updated_at
+        description: "Timestamp when the account was last updated"
+
+      - name: deleted_at
+        description: "Timestamp when the account was deleted, if applicable"
+
+      - name: user_id
+        description: "Foreign key to the users table"
+        tests:
+          - not_null
+
+      - name: account_type_id
+        description: "Foreign key to the account_types table"
+        tests:
+          - not_null
+
+      - name: name
+        description: "Name of the account"
+        tests:
+          - not_null
+
+      - name: virtual_balance
+        description: "Virtual balance for the account"
+
+      - name: iban
+        description: "IBAN (International Bank Account Number) for the account"
+
+      - name: active
+        description: "Whether the account is currently active"
+        tests:
+          - not_null
+
+      - name: encrypted
+        description: "Whether the account data is encrypted"
+        tests:
+          - not_null
+
+      - name: order
+        description: "Display order of the account"
+        tests:
+          - not_null
+
+      - name: user_group_id
+        description: "Foreign key to the user groups table"
+
+      - name: native_virtual_balance
+        description: "Native currency virtual balance for the account"
+
+  - name: categories
+    description: "Transaction categories in the firefly iii system"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: created_at
+        description: "Timestamp when the category was created"
+
+      - name: updated_at
+        description: "Timestamp when the category was last updated"
+
+      - name: deleted_at
+        description: "Timestamp when the category was deleted, if applicable"
+
+      - name: user_id
+        description: "Foreign key to the users table"
+        tests:
+          - not_null
+
+      - name: name
+        description: "Name of the category"
+        tests:
+          - not_null
+
+      - name: encrypted
+        description: "Whether the category data is encrypted"
+        tests:
+          - not_null
+
+      - name: user_group_id
+        description: "Foreign key to the user groups table"
+
+  - name: transactions
+    description: "Financial transactions in the firefly iii system"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: created_at
+        description: "Timestamp when the transaction was created"
+
+      - name: updated_at
+        description: "Timestamp when the transaction was last updated"
+
+      - name: deleted_at
+        description: "Timestamp when the transaction was deleted, if applicable"
+
+      - name: account_id
+        description: "Foreign key to the accounts table"
+        tests:
+          - not_null
+
+      - name: transaction_journal_id
+        description: "Foreign key to the transaction journals table"
+        tests:
+          - not_null
+
+      - name: description
+        description: "Description of the transaction"
+
+      - name: amount
+        description: "Amount of the transaction"
+        tests:
+          - not_null
+
+      - name: identifier
+        description: "Transaction identifier"
+        tests:
+          - not_null
+
+      - name: transaction_currency_id
+        description: "Foreign key to the transaction currencies table"
+
+      - name: foreign_amount
+        description: "Amount in foreign currency"
+
+      - name: foreign_currency_id
+        description: "Foreign key to the currencies table for foreign amount"
+
+      - name: reconciled
+        description: "Whether the transaction has been reconciled"
+        tests:
+          - not_null
+
+      - name: balance_before
+        description: "Account balance before the transaction"
+
+      - name: balance_after
+        description: "Account balance after the transaction"
+
+      - name: balance_dirty
+        description: "Flag indicating whether balance calculations need updating"
+        tests:
+          - not_null
+
+      - name: native_amount
+        description: "Transaction amount in native currency"
+
+      - name: native_foreign_amount
+        description: "Foreign amount in native currency"
+
+  - name: tags
+    description: "Transaction tags in the firefly iii system"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: created_at
+        description: "Timestamp when the tag was created"
+
+      - name: updated_at
+        description: "Timestamp when the tag was last updated"
+
+      - name: deleted_at
+        description: "Timestamp when the tag was deleted, if applicable"
+
+      - name: user_id
+        description: "Foreign key to the users table"
+        tests:
+          - not_null
+
+      - name: tag
+        description: "Tag name"
+        tests:
+          - not_null
+
+      - name: tagMode
+        description: "Mode of the tag"
+        tests:
+          - not_null
+
+      - name: date
+        description: "Date associated with the tag"
+
+      - name: description
+        description: "Description of the tag"
+
+      - name: latitude
+        description: "Latitude coordinate for location-based tags"
+
+      - name: longitude
+        description: "Longitude coordinate for location-based tags"
+
+      - name: zoomLevel
+        description: "Zoom level for map display"
+
+      - name: user_group_id
+        description: "Foreign key to the user groups table"
+
+      - name: date_tz
+        description: "Timezone information for the tag date"
+
+  - name: fake_accounts
+    description: "Fake accounts lightdash"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: name
+        description: "Name of the account"
+        tests:
+          - not_null
+
+      - name: category
+        description: "Category of the account"
+        tests:
+          - not_null
+
+      - name: balance
+        description: "Balance of the account"
+        tests:
+          - not_null
+
+      - name: currency
+        description: "Currency of the account balance"
+        tests:
+          - not_null
